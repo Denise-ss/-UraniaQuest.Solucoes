@@ -33,8 +33,8 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
             CadastrarSolucao();
             break; //Encerra aquele caso do switch
 
-        case 2:
-            Console.WriteLine("Listagem em desenvolvimento.");
+        case 2: 
+            ListarSolucoes();
             break;
 
         case 3:
@@ -110,5 +110,32 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
         Console.WriteLine();
         Console.WriteLine("Solucao cadastrada com sucesso!");
     }
+
+    void ListarSolucoes()  //Cria o método responsável pela listagem
+    {
+        Console.WriteLine();
+        Console.WriteLine("=== SOLUCOES CIENTIFICAS CADASTRADAS ===");
+
+        if (solucoes.Count == 0) //Conta quantas soluções existem na lista e Verifica se a lista está vazia
+        {
+            Console.WriteLine("Nenhuma solucao cadastrada.");
+            return;
+        }
+
+        foreach (SolucaoCientifica item in solucoes) //	Percorre cada solução cadastrada
+        {
+            Console.WriteLine();
+            Console.WriteLine($"Codigo: {item.Codigo}");
+            Console.WriteLine($"Nome: {item.Nome}"); //Acessa o nome da solução atual
+            Console.WriteLine($"Categoria: {item.Categoria}");
+            Console.WriteLine($"Problema: {item.Problema}");
+            Console.WriteLine($"Aplicacao: {item.Aplicacao}");
+            Console.WriteLine($"Instituicao: {item.Instituicao}");
+            Console.WriteLine($"Referencia: {item.Referencia}");
+            Console.WriteLine($"Link: {item.Link}");
+            Console.WriteLine("------------------------------------");
+        }
+    }
+
 
 }
