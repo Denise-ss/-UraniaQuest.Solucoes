@@ -1,8 +1,44 @@
 ﻿
+using System.Text.Json;
 using UraniaQuest.Solucoes.Models;
+using UraniaQuest.Solucoes.Repositorios;
 
-// Lista que guarda as solucoes cientificas cadastradas
+// Lista que guarda as solucoes cientificas
 List<SolucaoCientifica> solucoes = new List<SolucaoCientifica>();
+
+// Cria o repositorio responsavel pelo arquivo JSON
+RepositorioSolucoes repositorio = new RepositorioSolucoes();
+
+// Controla se o arquivo pode ser utilizado com seguranca
+bool arquivoDisponivel = true;
+
+// Tenta carregar as solucoes salvas anteriormente
+try
+{
+    solucoes = repositorio.Carregar();
+
+    Console.WriteLine($"Solucoes carregadas: {solucoes.Count}");
+}
+catch (JsonException ex)
+{
+    arquivoDisponivel = false;
+    Console.WriteLine($"Erro no formato do JSON: {ex.Message}");
+}
+catch (InvalidDataException ex)
+{
+    arquivoDisponivel = false;
+    Console.WriteLine($"Erro nos dados do arquivo: {ex.Message}");
+}
+catch (IOException ex)
+{
+    arquivoDisponivel = false;
+    Console.WriteLine($"Erro ao ler o arquivo: {ex.Message}");
+}
+catch (UnauthorizedAccessException ex)
+{
+    arquivoDisponivel = false;
+    Console.WriteLine($"Acesso negado ao arquivo: {ex.Message}");
+}
 
 // Variavel que guarda a opcao escolhida pelo usuario
 int opcao = -1;
@@ -61,6 +97,13 @@ while (opcao != 0)
 
     void CadastrarSolucao()
     {
+
+        if (!arquivoDisponivel)
+        {
+            Console.WriteLine("Cadastro bloqueado: verifique o arquivo JSON.");
+            return;
+        }
+
         Console.WriteLine();
         Console.WriteLine("=== CADASTRO DE SOLUCAO CIENTIFICA ===");
 
@@ -112,12 +155,32 @@ while (opcao != 0)
             Referencia = referencia,
             Link = link
         };
-
-        // Adiciona o objeto na lista
+        
+        // Adiciona a nova solucao na lista
         solucoes.Add(novaSolucao);
 
-        Console.WriteLine();
-        Console.WriteLine("Solucao cadastrada com sucesso!");
+        try
+        {
+            // Salva a lista atualizada no arquivo JSON
+            repositorio.Salvar(solucoes);
+
+            Console.WriteLine();
+            Console.WriteLine("Solucao cadastrada e salva com sucesso!");
+        }
+        catch (IOException ex)
+        {
+            // Desfaz a inclusao na lista se nao conseguir salvar
+            solucoes.Remove(novaSolucao);
+
+            Console.WriteLine($"Erro ao salvar o arquivo: {ex.Message}");
+        }
+        catch (UnauthorizedAccessException ex)
+        {
+            solucoes.Remove(novaSolucao);
+
+            Console.WriteLine($"Acesso negado ao arquivo: {ex.Message}");
+        }
+
     }
 
     // ============================================
