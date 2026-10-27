@@ -72,26 +72,20 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
             }
         }
 
-        Console.Write("Nome: ");
-        string nome = Console.ReadLine() ?? "";
+        string nome = LerCampoObrigatorio("Nome");
 
-        Console.Write("Categoria: ");
-        string categoria = Console.ReadLine() ?? "";
+        string categoria = LerCampoObrigatorio("Categoria");
 
-        Console.Write("Problema: ");
-        string problema = Console.ReadLine() ?? "";
+        string problema = LerCampoObrigatorio("Problema");
 
-        Console.Write("Aplicacao: ");
-        string aplicacao = Console.ReadLine() ?? "";
+        string aplicacao = LerCampoObrigatorio("Aplicacao");
 
-        Console.Write("Instituicao: ");
-        string instituicao = Console.ReadLine() ?? "";
+        string instituicao = LerCampoObrigatorio("Instituicao");
 
-        Console.Write("Referencia: ");
-        string referencia = Console.ReadLine() ?? "";
+        string referencia = LerCampoObrigatorio("Referencia");
 
-        Console.Write("Link: ");
-        string link = Console.ReadLine() ?? "";
+        string link = LerCampoObrigatorio("Link");
+
 
         SolucaoCientifica novaSolucao = new SolucaoCientifica //Cria uma nova solução usando a classe
         {
@@ -183,6 +177,26 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
             Console.WriteLine("Nenhuma solucao encontrada nessa categoria.");
         }
     }
+
+    //Ele solicita uma informação e verifica se o usuário digitou algum conteúdo. Caso o campo esteja vazio, repete a pergunta até receber um valor.
+    string LerCampoObrigatorio(string campo)
+    {
+        string valor = "";
+
+        while (valor == "")
+        {
+            Console.Write($"{campo}: ");
+            valor = (Console.ReadLine() ?? "").Trim();
+
+            if (valor == "")
+            {
+                Console.WriteLine("Este campo nao pode ficar vazio!");
+            }
+        }
+
+        return valor;
+    }
+
 
 
 
