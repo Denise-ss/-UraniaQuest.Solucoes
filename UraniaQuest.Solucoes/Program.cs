@@ -38,7 +38,7 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
             break;
 
         case 3:
-            Console.WriteLine("Busca em desenvolvimento.");
+            BuscarSolucoesPorCategoria();
             break;
 
         case 0:
@@ -136,6 +136,54 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
             Console.WriteLine("------------------------------------");
         }
     }
+
+    void BuscarSolucoesPorCategoria()
+    {
+        Console.WriteLine();
+        Console.WriteLine("=== BUSCAR SOLUCOES POR CATEGORIA ===");
+
+        if (solucoes.Count == 0) //Verifica se existe alguma solução cadastrada
+        {
+            Console.WriteLine("Nenhuma solucao cadastrada.");
+            return;
+        }
+
+        Console.Write("Digite a categoria: ");
+        string categoriaBusca = (Console.ReadLine() ?? "").Trim(); //Lê a categoria digitada e trim. Remove espaços extras no início e no fim
+
+        if (categoriaBusca == "")
+        {
+            Console.WriteLine("A categoria nao pode ficar vazia!");
+            return;
+        }
+
+        bool encontrou = false; //Controla se alguma solução foi encontrada
+
+        foreach (SolucaoCientifica item in solucoes)
+        {
+            if (item.Categoria.Trim().ToUpper() == categoriaBusca.ToUpper()) //Converte o texto para maiúsculas durante a comparação
+            {
+                Console.WriteLine();
+                Console.WriteLine($"Codigo: {item.Codigo}");
+                Console.WriteLine($"Nome: {item.Nome}");
+                Console.WriteLine($"Categoria: {item.Categoria}");
+                Console.WriteLine($"Problema: {item.Problema}");
+                Console.WriteLine($"Aplicacao: {item.Aplicacao}");
+                Console.WriteLine($"Instituicao: {item.Instituicao}");
+                Console.WriteLine($"Referencia: {item.Referencia}");
+                Console.WriteLine($"Link: {item.Link}");
+                Console.WriteLine("------------------------------------");
+
+                encontrou = true;
+            }
+        }
+
+        if (!encontrou) //Mostra uma mensagem caso não encontre resultados
+        {
+            Console.WriteLine("Nenhuma solucao encontrada nessa categoria.");
+        }
+    }
+
 
 
 }
