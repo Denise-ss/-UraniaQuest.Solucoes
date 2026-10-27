@@ -1,13 +1,16 @@
 ﻿
 using UraniaQuest.Solucoes.Models;
 
-List<SolucaoCientifica> solucoes = new List<SolucaoCientifica>(); //Lista que guarda nossas soluções
+// Lista que guarda as solucoes cientificas cadastradas
+List<SolucaoCientifica> solucoes = new List<SolucaoCientifica>();
 
-int opcao = -1; //	Cria uma variável para guardar a opção do usuário
+// Variavel que guarda a opcao escolhida pelo usuario
+int opcao = -1;
 
-while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher sair
+// Mantem o menu funcionando enquanto o usuario nao escolher sair
+while (opcao != 0)
 {
-    Console.WriteLine(); //Exibe informações no console
+    Console.WriteLine();
     Console.WriteLine("====================================");
     Console.WriteLine("            URANIAQUEST");
     Console.WriteLine("  Gerenciamento de Solucoes Cientificas");
@@ -20,20 +23,22 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
 
     Console.Write("Escolha uma opcao: ");
 
-    if (!int.TryParse(Console.ReadLine(), out opcao)) //	Lê a informação digitada e 	Verifica se a pessoa digitou um número válido
+    // Verifica se o usuario digitou um numero valido
+    if (!int.TryParse(Console.ReadLine(), out opcao))
     {
         Console.WriteLine("Digite um numero valido!");
         opcao = -1;
-        continue; //Retorna ao início do laço para mostrar o menu novamente
+        continue; // Volta ao inicio do menu
     }
 
-    switch (opcao) //Executa uma ação conforme a opção escolhida
+    // Executa uma acao conforme a opcao escolhida
+    switch (opcao)
     {
-        case 1: //Representa cada opção do menu
+        case 1:
             CadastrarSolucao();
-            break; //Encerra aquele caso do switch
+            break;
 
-        case 2: 
+        case 2:
             ListarSolucoes();
             break;
 
@@ -50,20 +55,26 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
             break;
     }
 
-    void CadastrarSolucao() //	Método responsável pelo cadastro
+    // ============================================
+    // METODO 1 - CADASTRAR SOLUCAO CIENTIFICA
+    // ============================================
+
+    void CadastrarSolucao()
     {
         Console.WriteLine();
         Console.WriteLine("=== CADASTRO DE SOLUCAO CIENTIFICA ===");
 
         Console.Write("Codigo: ");
 
+        // Verifica se o codigo e um numero maior que zero
         if (!int.TryParse(Console.ReadLine(), out int codigo) || codigo <= 0)
         {
             Console.WriteLine("Codigo invalido!");
-            return; //	Encerra o método quando encontra uma informação inválida
+            return;
         }
 
-        foreach (SolucaoCientifica item in solucoes) //	Percorre os registros para procurar um código repetido
+        // Verifica se ja existe uma solucao com esse codigo
+        foreach (SolucaoCientifica item in solucoes)
         {
             if (item.Codigo == codigo)
             {
@@ -72,9 +83,11 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
             }
         }
 
+        // Le os campos obrigatorios do cadastro
         string nome = LerCampoObrigatorio("Nome");
 
-        string categoria = LerCampoObrigatorio("Categoria");
+        // Permite somente as cinco categorias do UraniaQuest
+        string categoria = LerCategoriaValida();
 
         string problema = LerCampoObrigatorio("Problema");
 
@@ -84,10 +97,11 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
 
         string referencia = LerCampoObrigatorio("Referencia");
 
-        string link = LerCampoObrigatorio("Link");
+        // Verifica se o link possui um formato valido
+        string link = LerLinkValido();
 
-
-        SolucaoCientifica novaSolucao = new SolucaoCientifica //Cria uma nova solução usando a classe
+        // Cria um objeto usando a classe SolucaoCientifica
+        SolucaoCientifica novaSolucao = new SolucaoCientifica
         {
             Codigo = codigo,
             Nome = nome,
@@ -99,28 +113,35 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
             Link = link
         };
 
-        solucoes.Add(novaSolucao); //Adiciona o objeto à lista
+        // Adiciona o objeto na lista
+        solucoes.Add(novaSolucao);
 
         Console.WriteLine();
         Console.WriteLine("Solucao cadastrada com sucesso!");
     }
 
-    void ListarSolucoes()  //Cria o método responsável pela listagem
+    // ============================================
+    // METODO 2 - LISTAR SOLUCOES CADASTRADAS
+    // ============================================
+
+    void ListarSolucoes()
     {
         Console.WriteLine();
         Console.WriteLine("=== SOLUCOES CIENTIFICAS CADASTRADAS ===");
 
-        if (solucoes.Count == 0) //Conta quantas soluções existem na lista e Verifica se a lista está vazia
+        // Verifica se a lista esta vazia
+        if (solucoes.Count == 0)
         {
             Console.WriteLine("Nenhuma solucao cadastrada.");
             return;
         }
 
-        foreach (SolucaoCientifica item in solucoes) //	Percorre cada solução cadastrada
+        // Percorre todas as solucoes cadastradas
+        foreach (SolucaoCientifica item in solucoes)
         {
             Console.WriteLine();
             Console.WriteLine($"Codigo: {item.Codigo}");
-            Console.WriteLine($"Nome: {item.Nome}"); //Acessa o nome da solução atual
+            Console.WriteLine($"Nome: {item.Nome}");
             Console.WriteLine($"Categoria: {item.Categoria}");
             Console.WriteLine($"Problema: {item.Problema}");
             Console.WriteLine($"Aplicacao: {item.Aplicacao}");
@@ -131,31 +152,42 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
         }
     }
 
+    // ============================================
+    // METODO 3 - BUSCAR POR CATEGORIA
+    // ============================================
+
     void BuscarSolucoesPorCategoria()
     {
         Console.WriteLine();
         Console.WriteLine("=== BUSCAR SOLUCOES POR CATEGORIA ===");
 
-        if (solucoes.Count == 0) //Verifica se existe alguma solução cadastrada
+        // Verifica se existe alguma solucao cadastrada
+        if (solucoes.Count == 0)
         {
             Console.WriteLine("Nenhuma solucao cadastrada.");
             return;
         }
 
         Console.Write("Digite a categoria: ");
-        string categoriaBusca = (Console.ReadLine() ?? "").Trim(); //Lê a categoria digitada e trim. Remove espaços extras no início e no fim
 
+        // Remove espacos extras da categoria digitada
+        string categoriaBusca = (Console.ReadLine() ?? "").Trim();
+
+        // Impede a pesquisa com categoria vazia
         if (categoriaBusca == "")
         {
             Console.WriteLine("A categoria nao pode ficar vazia!");
             return;
         }
 
-        bool encontrou = false; //Controla se alguma solução foi encontrada
+        // Controla se alguma solucao foi encontrada
+        bool encontrou = false;
 
+        // Percorre as solucoes procurando pela categoria
         foreach (SolucaoCientifica item in solucoes)
         {
-            if (item.Categoria.Trim().ToUpper() == categoriaBusca.ToUpper()) //Converte o texto para maiúsculas durante a comparação
+            // ToUpper permite comparar letras maiusculas e minusculas
+            if (item.Categoria.Trim().ToUpper() == categoriaBusca.ToUpper())
             {
                 Console.WriteLine();
                 Console.WriteLine($"Codigo: {item.Codigo}");
@@ -172,20 +204,27 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
             }
         }
 
-        if (!encontrou) //Mostra uma mensagem caso não encontre resultados
+        // Informa quando nao existem solucoes na categoria
+        if (!encontrou)
         {
             Console.WriteLine("Nenhuma solucao encontrada nessa categoria.");
         }
     }
 
-    //Ele solicita uma informação e verifica se o usuário digitou algum conteúdo. Caso o campo esteja vazio, repete a pergunta até receber um valor.
+    // ============================================
+    // METODO 4 - VALIDAR CAMPOS OBRIGATORIOS
+    // ============================================
+
     string LerCampoObrigatorio(string campo)
     {
         string valor = "";
 
+        // Repete a pergunta enquanto o campo estiver vazio
         while (valor == "")
         {
             Console.Write($"{campo}: ");
+
+            // Le o valor e remove os espacos extras
             valor = (Console.ReadLine() ?? "").Trim();
 
             if (valor == "")
@@ -194,10 +233,63 @@ while (opcao != 0) //Mantém o menu funcionando enquanto a pessoa não escolher 
             }
         }
 
+        // Devolve o valor preenchido
         return valor;
     }
 
+    // ============================================
+    // METODO 5 - VALIDAR CATEGORIAS
+    // ============================================
 
+    string LerCategoriaValida()
+    {
+        while (true)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Categorias disponiveis:");
+            Console.WriteLine("ALIMENTACAO");
+            Console.WriteLine("SAUDE");
+            Console.WriteLine("ENERGIA");
+            Console.WriteLine("INDUSTRIA");
+            Console.WriteLine("AMAZONIA_AZUL");
 
+            // Le a categoria e converte para letras maiusculas
+            string categoria = LerCampoObrigatorio("Categoria").ToUpper();
 
+            // Verifica se pertence aos cinco setores do UraniaQuest
+            if (categoria == "ALIMENTACAO" ||
+                categoria == "SAUDE" ||
+                categoria == "ENERGIA" ||
+                categoria == "INDUSTRIA" ||
+                categoria == "AMAZONIA_AZUL")
+            {
+                return categoria;
+            }
+
+            Console.WriteLine("Categoria invalida! Escolha uma das opcoes.");
+        }
+    }
+
+    // ============================================
+    // METODO 6 - VALIDAR LINK CIENTIFICO
+    // ============================================
+
+    string LerLinkValido()
+    {
+        while (true)
+        {
+            // Solicita o endereco da referencia cientifica
+            string link = LerCampoObrigatorio("Link");
+
+            // Verifica se e um endereco completo com HTTP ou HTTPS
+            if (Uri.TryCreate(link, UriKind.Absolute, out Uri? endereco) &&
+                endereco != null &&
+                (endereco.Scheme == "http" || endereco.Scheme == "https"))
+            {
+                return link;
+            }
+
+            Console.WriteLine("Link invalido! Informe um endereco com http:// ou https://.");
+        }
+    }
 }
