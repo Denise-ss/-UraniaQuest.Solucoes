@@ -1,4 +1,4 @@
-# UraniaQuest
+# Urania
 **Challenge FIAP 2026 | AMAZUL | 2TDSPA**
 
 ### 🌎 Nossa ideia
@@ -27,12 +27,7 @@ Como nosso jogo envolve problemas e soluções científicas, começamos criando 
 
 O programa permite:
 
-- **Cadastrar** soluções científicas, informando código, nome, categoria, problema, aplicação, instituição, referência e link.
-- **Listar** as soluções cadastradas.
-- **Buscar** soluções por categoria.
-- **Validar** campos obrigatórios, códigos repetidos, categorias e links.
-- **Salvar e recuperar** os registros em um arquivo JSON.
-- **Tratar erros** relacionados à leitura e ao salvamento dos dados.
+
 
 Organizamos o código utilizando a classe `SolucaoCientifica`, o `Program.cs` e a classe `RepositorioSolucoes`.
 
