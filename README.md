@@ -73,4 +73,32 @@ O sistema ainda funciona pelo terminal e não está integrado ao jogo. Nossa int
 
 <p align="left">
   <img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white" alt="C#" />
-  <img src="https://img.shields.io/badge/.NET_8-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt
+  <img src="https://img.shields.io/badge/.NET_8-512BD4?style=for-the-badge&logo=dotnet&logoColor=white" alt=".NET 8" />
+  <img src="https://img.shields.io/badge/Visual_Studio-5C2D91?style=for-the-badge&logo=visual%20studio&logoColor=white" alt="Visual Studio" />
+  <img src="https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white" alt="JSON" />
+  <img src="https://img.shields.io/badge/Git-F05033?style=for-the-badge&logo=git&logoColor=white" alt="Git" />
+  <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+</p>
+
+---
+
+### 👥 Nossa equipe
+
+**Turma: 2TDSPA**
+
+| Integrante | RM |
+|---|---|
+| Pedro Begali | 567478 |
+| Lucas Dudena | 567600 |
+| Karen Cardoso | 566870 |
+| Denise Santos | 567559 |
+
+---
+
+### 💙 Nosso propósito
+
+Estamos apenas começando, mas já conseguimos transformar parte da nossa ideia em uma aplicação funcional.
+
+Queremos que o UraniaQuest seja mais do que um jogo de perguntas e respostas. Queremos despertar a curiosidade e mostrar que aprender também pode ser uma aventura.
+
+**UraniaQuest — explorar, aprender e transformar! 🌎🚀**
