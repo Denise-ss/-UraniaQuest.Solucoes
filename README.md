@@ -4,7 +4,7 @@
 </p>
 
 ---
-
+Repositório destinado ao desenvolvimento e documentação do projeto UraniaQuest.
 ### 🌎 Nossa ideia
 
 Quando ouvimos falar em energia nuclear, muitas vezes pensamos em acidentes, radiação e tragédias. Esses riscos são reais e não devem ser ignorados.
@@ -102,3 +102,4 @@ Estamos apenas começando, mas já conseguimos transformar parte da nossa ideia 
 Queremos que o UraniaQuest seja mais do que um jogo de perguntas e respostas. Queremos despertar a curiosidade e mostrar que aprender também pode ser uma aventura.
 
 **UraniaQuest — explorar, aprender e transformar! 🌎🚀**
+
